@@ -1,0 +1,13 @@
+#!/user/bin/env stap
+global start;
+probe begin
+{
+	println("Tracing... to end");
+}
+probe process("/lib64/libc.so.6").function("malloc")
+{
+	if(15717 == pid())
+	{
+		println("in malloc ", pid(), " ", execname());
+	}
+}
